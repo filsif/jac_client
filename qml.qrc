@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/PageLogin.qml</file>
+        <file>qml/LoginButton.qml</file>
+        <file>images/logo.png</file>
+        <file>qml/PagePrincipale.qml</file>
+        <file>images/facebook.png</file>
+        <file>images/google-plus.png</file>
+        <file>qml/MainMenu.qml</file>
+        <file>qml/MenuIconLive.qml</file>
+        <file>qml/MyPage.qml</file>
+        <file>qml/PageAbout.qml</file>
+        <file>qml/PageExample.qml</file>
+        <file>qml/PageSettings.qml</file>
+        <file>images/nobody.png</file>
+        <file>images/shadow_long.png</file>
+        <file>images/shadow_title.png</file>
+        <file>images/man-6.png</file>
+        <file>images/woman-9.png</file>
+        <file>images/team.png</file>
+        <file>images/logout.png</file>
+        <file>qml/PageMyGame.qml</file>
+        <file>images/add-1-icon.png</file>
+        <file>images/add-1-icon-bgg.png</file>
+    </qresource>
+</RCC>
