@@ -25,6 +25,8 @@ Item {
            MouseArea {
                anchors.fill : parent
                onClicked: {
+                   mainWidget.Search()
+
 
                }
            }
@@ -41,6 +43,23 @@ Item {
 
                }
            }
+        }
+
+        Connections {
+            target: mainWidget
+
+            onSearchBegin: {
+                console.log("<onSearchBegin>: clear everyting.")
+
+            }
+
+            // *** Initial search finished: get the BoardGameData for each result ***
+            onSearchFetched: {
+                console.log("<onSearchFetched>")
+                mainWidget.SearchBoardGames(result)
+            }
+
+
         }
     }
 

@@ -1,7 +1,7 @@
 #include "jacclient.h"
 #include <QNetworkRequest>
-#include "loginquery.h"
-#include "logoutquery.h"
+
+
 
 namespace jac
 {
@@ -14,7 +14,8 @@ JacClient::JacClient( QObject *parent)
 {
     m_mutex = new QMutex;
     m_qnam = new QNetworkAccessManager(this);
-    m_baseUrl = "http://fmr-dev.net:8000/server/";
+    //m_baseUrl = "http://fmr-dev.net:8000/server/";
+    m_baseUrl = "http://127.0.0.1:8000/server/";
 }
 
 
@@ -32,6 +33,16 @@ JacClient::getReply(QNetworkRequest & request)
     QMutexLocker locker( m_mutex );
 
     return m_qnam->get(request);
+}
+
+QNetworkReply *
+JacClient::postReply(QNetworkRequest & request , QUrlQuery &params)
+{
+    QMutexLocker locker( m_mutex );
+
+    return m_qnam->post(request , params.toString().toUtf8() );
+
+
 }
 
 int
@@ -75,6 +86,32 @@ void
 JacClient::on_result_logout_finished( LogoutQuery *query )
 {
     emit logout();
+    query->deleteLater();
+
+}
+
+
+/*
+add boardgame
+*/
+
+int
+JacClient::addBoardGame( Bgg::BoardGameInfo_sp bg_info )
+{
+    AddBoardGameQuery *query = new AddBoardGameQuery( *this , bg_info );
+
+    connect ( query , SIGNAL(results(AddBoardGameQuery * )) , this , SLOT(on_result_boardgame_added(AddBoardGameQuery * )));
+
+
+    return 0;
+
+}
+
+
+void
+JacClient::on_result_boardgame_added(AddBoardGameQuery * query )
+{
+    qDebug() << "game added !!!";
     query->deleteLater();
 
 }
