@@ -2,6 +2,7 @@
 #include <QNetworkRequest>
 #include <QUrlQuery>
 #include "jacclient.h"
+#include <QTextDocument>
 
 
 namespace jac
@@ -20,12 +21,26 @@ m_client(jac)
 
     params.addQueryItem("name"          , m_bg_infos->title());
     params.addQueryItem("year"          , QString("%1").arg(m_bg_infos->year().year()));
-    params.addQueryItem("synopsis"      , m_bg_infos->synopsis());
+
+
+
+
+
+    params.addQueryItem("synopsis"      ,m_bg_infos->synopsis());
     params.addQueryItem("min_age"       , QString("%1").arg(m_bg_infos->minAge()));
     params.addQueryItem("min_player"    , QString("%1").arg(m_bg_infos->minPlayer()));
     params.addQueryItem("max_player"    , QString("%1").arg(m_bg_infos->maxPlayer()));
     params.addQueryItem("playing_time"  , QString("%1").arg(m_bg_infos->duration()));
     params.addQueryItem("bgg_id"        , QString("%1").arg(m_bg_infos->boardgameId()));
+
+    const QList<QString> &genres = m_bg_infos->genres();
+
+    for ( int i = 0 ; i < genres.length() ; i++ )
+    {
+        params.addQueryItem("genre"        , genres[i] );
+
+    }
+
 
     //url.setQuery(params);
 

@@ -40,7 +40,7 @@ JacClient::postReply(QNetworkRequest & request , QUrlQuery &params)
 {
     QMutexLocker locker( m_mutex );
 
-    return m_qnam->post(request , params.toString().toUtf8() );
+    return m_qnam->post(request , params.query(QUrl::FullyEncoded).toUtf8() );
 
 
 }

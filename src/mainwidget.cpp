@@ -2,6 +2,7 @@
 #include <QGuiApplication>
 #include <QTimer>
 #include <QSharedPointer>
+#include <QThread>
 
 #include "mainwidget.h"
 #include <libbgg/models.h>
@@ -146,6 +147,7 @@ MainWidget::on_boardgame_result(Bgg::BoardGameQuery * query )
 
             m_client->addBoardGame( bg_info );
 
+            // attendre
 
 
 
