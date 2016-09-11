@@ -8,6 +8,7 @@
 #include <QNetworkRequest>
 #include <QString>
 #include <QUrlQuery>
+#include <QHttpMultiPart>
 
 
 #include "loginquery.h"
@@ -40,7 +41,7 @@ public:
 
     QString                         baseUrl                             ( ){ return m_baseUrl;}
     QNetworkReply *                 getReply                            ( QNetworkRequest & request);
-    QNetworkReply *                 postReply                           ( QNetworkRequest & request , QUrlQuery &params);
+    QNetworkReply *                 postReply                           ( QNetworkRequest & request , QHttpMultiPart * params);
 
 private :
 

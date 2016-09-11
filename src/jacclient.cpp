@@ -36,11 +36,12 @@ JacClient::getReply(QNetworkRequest & request)
 }
 
 QNetworkReply *
-JacClient::postReply(QNetworkRequest & request , QUrlQuery &params)
+JacClient::postReply(QNetworkRequest & request , QHttpMultiPart *params)
 {
     QMutexLocker locker( m_mutex );
 
-    return m_qnam->post(request , params.query(QUrl::FullyEncoded).toUtf8() );
+    //return m_qnam->post(request , params.query(QUrl::FullyEncoded).toUtf8() );
+    return m_qnam->post(request , params );
 
 
 }

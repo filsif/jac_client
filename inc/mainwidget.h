@@ -100,6 +100,7 @@ public slots:
 
     void    on_search_collection_results( Bgg::SearchCollectionQuery * );
     void    on_boardgame_result(Bgg::BoardGameQuery *);
+    void    on_image_result( Bgg::ImageQuery * query );
 
 private slots:
 

@@ -11,6 +11,7 @@
 
 
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 MainWidget::MainWidget(QWindow *parent )
  : QQuickView(parent)
@@ -137,26 +138,40 @@ MainWidget::on_boardgame_result(Bgg::BoardGameQuery * query )
     else {
         Bgg::MediaObjectList_sp boardgameInfoList = query->results();
 
+
         for ( int i = 0 ; i < boardgameInfoList.count() ; i++ )
         {
 
             Bgg::MediaObject_sp media_object =  boardgameInfoList[i];
             Bgg::BoardGameInfo_sp bg_info = qSharedPointerCast<Bgg::BoardGameInfo>(  media_object );
 
-            qDebug() << "game is : " << bg_info->title();
-
-            m_client->addBoardGame( bg_info );
-
-            // attendre
 
 
-
-
-            /*
             Bgg::ImageQuery * iquery = m_bgg_api->imageQuery( boardgameInfoList[i] );
             if(iquery)
-                connect(iquery, SIGNAL(result(Bgg::ImageQuery *)), this, SLOT(on_image_result(Bgg::ImageQuery *)));*/
+                connect(iquery, SIGNAL(result(Bgg::ImageQuery *)), this, SLOT(on_image_result(Bgg::ImageQuery *)));
         }
     }
     query->deleteLater();
+}
+
+void
+MainWidget::on_image_result( Bgg::ImageQuery * query )
+{
+
+    if(!query)
+        return;
+
+    if(query->hasError()) {
+        qCritical() << "<MainWidget::on_image_result>: Error code=" << query->errorCode() << ", message=" << query->errorMessage();
+    }
+    else {
+        Bgg::BoardGameInfo_sp bg_info = qSharedPointerDynamicCast<Bgg::BoardGameInfo>(query->result());
+        if( bg_info )
+        {
+            m_client->addBoardGame( bg_info );
+        }
+    }
+    query->deleteLater();
+
 }

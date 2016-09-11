@@ -1,9 +1,14 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+
 #include "jacclient.h"
 #include "mainwidget.h"
 #include "mydevice.h"
+
+
+
+
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +21,8 @@ int main(int argc, char *argv[])
 
 
     qmlRegisterType<MyDevice>("mydevice", 1, 0, "MyDevice");
+
+
 
 /*
  *
