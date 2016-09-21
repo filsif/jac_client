@@ -21,9 +21,14 @@ MainWidget::MainWidget(QWindow *parent )
     setResizeMode(QQuickView::SizeRootObjectToView);
 
     // Init client access
+
+    //qmlRegisterType<jac::JacClient>("jac.client", 1, 0, "jacClient");
+
     m_client = new jac::JacClient( );
-    connect ( m_client , SIGNAL(login()) , this , SLOT(onLogin()));
-    connect ( m_client , SIGNAL(logout()) , this , SLOT(onLogout()));
+    connect ( m_client , SIGNAL(login()) , this , SLOT(on_login()));
+    connect ( m_client , SIGNAL(logout()) , this , SLOT(on_logout()));
+    connect ( m_client , SIGNAL(emailAlreadyExists(bool)) , this , SLOT(on_email_exists(bool)));
+    connect ( m_client , SIGNAL(nicknameAlreadyExists(bool)) , this , SLOT(on_nickname_exists(bool)));
 
     // Init Bgg API
 
@@ -48,11 +53,14 @@ MainWidget::~MainWidget()
     delete m_bgg_api;
 }
 
+/*
+invokable for QML side
+*/
 
 void
 MainWidget::Login( QString  l ,  QString p)
 {
-    m_client->loginJac( l , p );
+    m_client->loginJac( l , p );   
 
 }
 
@@ -63,15 +71,48 @@ MainWidget::Logout( )
 
 }
 
+void
+MainWidget::Inscription()
+{
+    emit inscription();
+}
 
 void
-MainWidget::onLogin()
+MainWidget::CheckEmail( QString email )
+{
+    m_client->checkEmail( email );
+}
+
+void
+MainWidget::CheckNickname( QString nickname )
+{
+   m_client->checkNickname( nickname );
+}
+
+/*
+private slots from JacClient
+*/
+void
+MainWidget::on_login()
 {
     emit login();
 }
 
 void
-MainWidget::onLogout()
+MainWidget::on_email_exists( bool result )
+{
+    qDebug() <<" result : ";
+    emit nicknameExists( result );
+}
+
+void
+MainWidget::on_nickname_exists( bool result )
+{
+    emit emailExists( result );
+}
+
+void
+MainWidget::on_logout()
 {
     emit logout();
 }

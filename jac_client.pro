@@ -17,7 +17,9 @@ SOURCES += src/main.cpp \
     src/mainwidget.cpp \
     src/mydevice.cpp \
     src/logoutquery.cpp \
-    src/addboardgamequery.cpp
+    src/addboardgamequery.cpp \
+    src/checknicknamequery.cpp \
+    src/checkemailquery.cpp
 
 RESOURCES += qml.qrc
 
@@ -56,7 +58,9 @@ HEADERS += \
     inc/mainwidget.h \
     inc/mydevice.h \
     inc/logoutquery.h \
-    inc/addboardgamequery.h
+    inc/addboardgamequery.h \
+    inc/checknicknamequery.h \
+    inc/checkemailquery.h
 
 	
 	INCLUDEPATH += . \

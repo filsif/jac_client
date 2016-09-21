@@ -78,6 +78,10 @@ signals:
 
     void    login();
     void    logout();
+    void    inscription();
+
+    void    emailExists( bool );
+    void    nicknameExists( bool );
 
     void    searchBegin();
     void    searchFetched( SearchResult * result );
@@ -87,20 +91,26 @@ public:
     ~MainWidget();
 
 
+    Q_INVOKABLE void    Login ( QString ,  QString );
+    Q_INVOKABLE void    Logout();
+    Q_INVOKABLE void    Inscription();
+    Q_INVOKABLE void    CheckEmail( QString );
+    Q_INVOKABLE void    CheckNickname( QString);
+    Q_INVOKABLE void    Search();
+    Q_INVOKABLE void    SearchBoardGames( SearchResult *obj );
 
-public slots:
 
-    void    Login ( QString ,  QString );
-    void    Logout();
-    void    onLogin();
-    void    onLogout();
 
-    void    Search();
-    void    SearchBoardGames( SearchResult *obj );
+private slots:
 
-    void    on_search_collection_results( Bgg::SearchCollectionQuery * );
-    void    on_boardgame_result(Bgg::BoardGameQuery *);
-    void    on_image_result( Bgg::ImageQuery * query );
+    void    on_login                        ();
+    void    on_logout                       ();
+    void    on_email_exists                 ( bool );
+    void    on_nickname_exists              ( bool );
+    void    on_search_collection_results    ( Bgg::SearchCollectionQuery * );
+    void    on_boardgame_result             ( Bgg::BoardGameQuery * );
+    void    on_image_result                 ( Bgg::ImageQuery * query );
+
 
 private slots:
 

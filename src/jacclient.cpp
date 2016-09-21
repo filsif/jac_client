@@ -49,13 +49,47 @@ JacClient::postReply(QNetworkRequest & request , QHttpMultiPart *params)
 int
 JacClient::loginJac( QString login , QString  password )
 {
-
     LoginQuery *query = new LoginQuery(*this,  login, password );
-
     connect ( query , SIGNAL(results(LoginQuery * , bool)) , this , SLOT(on_result_login_finished(LoginQuery * , bool)));
-
     return 0;
 }
+
+int
+JacClient::logoutJac()
+{
+    LogoutQuery *query = new LogoutQuery(*this  );
+    connect ( query , SIGNAL(results(LogoutQuery * )) , this , SLOT(on_result_logout_finished(LogoutQuery * )));
+    return 0;
+}
+
+int
+JacClient::checkNickname( QString nickname )
+{
+    CheckNicknameQuery *query = new CheckNicknameQuery( *this , nickname );
+    connect ( query , SIGNAL(results(CheckNicknameQuery * , bool )) , this , SLOT(on_result_check_nickname(CheckNicknameQuery * , bool )));
+    return 0;
+}
+
+int
+JacClient::checkEmail( QString email)
+{
+    CheckEmailQuery *query = new CheckEmailQuery( *this , email );
+    connect ( query , SIGNAL(results(CheckEmailQuery * , bool )) , this , SLOT(on_result_check_email(CheckEmailQuery * , bool )));
+    return 0;
+}
+
+
+
+int
+JacClient::addBoardGame( Bgg::BoardGameInfo_sp bg_info )
+{
+    AddBoardGameQuery *query = new AddBoardGameQuery( *this , bg_info );
+    connect ( query , SIGNAL(results(AddBoardGameQuery * )) , this , SLOT(on_result_boardgame_added(AddBoardGameQuery * )));
+    return 0;
+}
+
+
+
 
 void
 JacClient::on_result_login_finished( LoginQuery *query, bool logged)
@@ -64,23 +98,9 @@ JacClient::on_result_login_finished( LoginQuery *query, bool logged)
     {
         emit login();
     }
-
     query->deleteLater();
-
 }
 
-int
-JacClient::logoutJac()
-{
-
-    LogoutQuery *query = new LogoutQuery(*this  );
-
-    connect ( query , SIGNAL(results(LogoutQuery * )) , this , SLOT(on_result_logout_finished(LogoutQuery * )));
-
-
-     return 0;
-
-}
 
 
 void
@@ -88,36 +108,31 @@ JacClient::on_result_logout_finished( LogoutQuery *query )
 {
     emit logout();
     query->deleteLater();
-
-}
-
-
-/*
-add boardgame
-*/
-
-int
-JacClient::addBoardGame( Bgg::BoardGameInfo_sp bg_info )
-{
-    AddBoardGameQuery *query = new AddBoardGameQuery( *this , bg_info );
-
-    connect ( query , SIGNAL(results(AddBoardGameQuery * )) , this , SLOT(on_result_boardgame_added(AddBoardGameQuery * )));
-
-
-    return 0;
-
 }
 
 
 void
 JacClient::on_result_boardgame_added(AddBoardGameQuery * query )
+{    
+    query->deleteLater();
+}
+
+
+void
+JacClient::on_result_check_nickname( CheckNicknameQuery * query ,bool already )
 {
-    qDebug() << "game added !!!";
+    qDebug()<<"prout";
+    emit nicknameAlreadyExists( already );
     query->deleteLater();
 
 }
 
-
+void
+JacClient::on_result_check_email( CheckEmailQuery * query ,bool already )
+{
+    emit emailAlreadyExists( already );
+    query->deleteLater();
+}
 
 
 }

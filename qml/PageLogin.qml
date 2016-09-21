@@ -57,7 +57,7 @@ Rectangle{
             placeholderText             : "Mot de passe"
             background: Rectangle{
                 color :"white"
-                border.color: login.enabled ? "#0083b3" : "#c0c0c0"
+                border.color: password.enabled ? "#0083b3" : "#c0c0c0"
                 radius : 3
             }
         }
@@ -83,6 +83,9 @@ Rectangle{
             x : 50
             height: 30
             disabled: false
+            onClicked:{
+                mainWidget.Inscription()
+            }
 
         }
     }
@@ -136,6 +139,9 @@ Rectangle{
             console.log( "logged" )
 
             mainpage.state = "PRINCIPALE"
+        }
+        onInscription: {
+            mainpage.state = "INSCRIPTION"
         }
 
     }

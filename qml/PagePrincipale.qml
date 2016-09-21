@@ -206,7 +206,7 @@ Rectangle {
                 }
             }
             onLoaded: {
-                titleText.text = item.title
+             //   titleText.text = item.title
             }
             Rectangle {
                 id: curtainLoading

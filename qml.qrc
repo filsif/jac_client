@@ -23,5 +23,8 @@
         <file>qml/PageMyGame.qml</file>
         <file>images/add-1-icon.png</file>
         <file>images/add-1-icon-bgg.png</file>
+        <file>qml/PageInscription.qml</file>
+        <file>images/close.png</file>
+        <file>images/success.png</file>
     </qresource>
 </RCC>

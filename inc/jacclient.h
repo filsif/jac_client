@@ -11,9 +11,13 @@
 #include <QHttpMultiPart>
 
 
+// queries
+
 #include "loginquery.h"
 #include "logoutquery.h"
 #include "addboardgamequery.h"
+#include "checknicknamequery.h"
+#include "checkemailquery.h"
 
 // libbgg
 
@@ -29,12 +33,21 @@ signals:
 
     void                            login                               ( );
     void                            logout                              ( );
+    void                            nicknameAlreadyExists               ( bool );
+    void                            emailAlreadyExists                  ( bool );
 public:
                                     JacClient                           ( QObject * parent  = Q_NULLPTR);
     virtual                         ~JacClient                          ( );
 
+
+    // public access
+
     int                             loginJac                            ( QString  , QString );
     int                             logoutJac                           ( );
+    int                             checkNickname                       ( QString );
+    int                             checkEmail                          ( QString );
+
+
     int                             addBoardGame                        ( Bgg::BoardGameInfo_sp bg_info );
 
 
@@ -56,6 +69,8 @@ private slots:
     void                            on_result_login_finished             ( LoginQuery * , bool );
     void                            on_result_logout_finished            ( LogoutQuery * );
     void                            on_result_boardgame_added            ( AddBoardGameQuery * );
+    void                            on_result_check_nickname             ( CheckNicknameQuery *, bool );
+    void                            on_result_check_email                ( CheckEmailQuery *,bool );
 };
 
 }
