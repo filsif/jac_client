@@ -80,8 +80,8 @@ signals:
     void    logout();
     void    inscription();
 
-    void    emailExists( bool );
-    void    nicknameExists( bool );
+    void    emailExists( bool result);
+    void    nicknameExists( bool result );
 
     void    searchBegin();
     void    searchFetched( SearchResult * result );

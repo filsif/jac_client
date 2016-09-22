@@ -26,5 +26,6 @@
         <file>qml/PageInscription.qml</file>
         <file>images/close.png</file>
         <file>images/success.png</file>
+        <file>qml/RowInscription.qml</file>
     </qresource>
 </RCC>

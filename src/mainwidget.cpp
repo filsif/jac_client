@@ -102,13 +102,14 @@ void
 MainWidget::on_email_exists( bool result )
 {
     qDebug() <<" result : ";
-    emit nicknameExists( result );
+    emit emailExists( result );
 }
 
 void
 MainWidget::on_nickname_exists( bool result )
 {
-    emit emailExists( result );
+
+    emit nicknameExists( result );
 }
 
 void

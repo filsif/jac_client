@@ -47,8 +47,10 @@ CheckNicknameQuery::on_check_nickname_finished()
     }
     else
     {
-        qDebug() <<"pouet " << m_reply->readAll();
-        QJsonDocument jsonResponse = QJsonDocument::fromJson( m_reply->readAll() );
+
+
+        QByteArray ba = m_reply->readAll();
+        QJsonDocument jsonResponse = QJsonDocument::fromJson( ba  );
         if ( !jsonResponse.isEmpty() )
         {
             qDebug()<<"pip";

@@ -15,7 +15,8 @@ JacClient::JacClient( QObject *parent)
     m_mutex = new QMutex;
     m_qnam = new QNetworkAccessManager(this);
     //m_baseUrl = "http://fmr-dev.net:8000/server/";
-    m_baseUrl = "http://127.0.0.1:8000/server/";
+    //m_baseUrl = "http://127.0.0.1:8000/server/";
+    m_baseUrl = "http://172.17.10.140:8000/server/";
 }
 
 

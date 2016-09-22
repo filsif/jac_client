@@ -17,52 +17,24 @@ Rectangle{
         spacing : 5
 
 
-            TextField {
-                id                          : nickname
-                width                       : parent.width - 150
-                height                      : 30
-                x                           : 25
-                color                       : "#000000"
-                font.pixelSize              : 12
-                placeholderText             : "Pseudo Jouons à Châteauroux"
-                background: Rectangle{
-                    color :"white"
-                    border.color: nickname.enabled ? "#0083b3" : "#c0c0c0"
-                    radius : 3
-                }
-
-                onEditingFinished:{
-
-                    // verifier que le nickname n'est pas déjà pris
-
-                    if ( nickname.text == "" )
-                    {
-                        nickCheckRight.visible = false
-                        nickCheckWrong.visible = true
-                    }
-                    else
-                    {
-                        mainWidget.CheckNickname( nickname.text )
-                    }
-                }
-            }
-            Image{
-                id       : nickCheckRight
-                width    : 64
-                height   : 64
-                source   : "qrc:///images/success.png"
-                visible  : true
-            }
-
-            Image{
-                id       : nickCheckWrong
-                width    : 64
-                height   : 64
-                source   : "qrc:///images/close.png"
-                visible  : true
-            }
+        RowInscription{
+            id : nickname
+            canBeEmpty : false
+            phText : "Pseudo Jouons à Châteauroux"
 
 
+
+        }
+
+        RowInscription{
+            id : email
+            anchors.top : nickname.bottom
+            canBeEmpty : false
+            phText : "E-mail"
+        }
+
+
+/*
 
         TextField {
             id                          : email
@@ -131,24 +103,21 @@ Rectangle{
         }
 
 
+*/
+        Connections{
+            target : nickname
+            onCheckValue:{
+                console.log("titi")
+                mainWidget.CheckNickname( str )
+            }
+        }
+
         Connections{
             target : mainWidget
 
             onNicknameExists:{
-                console.log(result)
-                if ( result == true )
-                {
-                    nickCheckRight.visible = false
-                    nickCheckWrong.visible = true
-
-                }
-                else
-                {
-                    nickCheckRight.visible = true
-                    nickCheckWrong.visible = false
-
-                }
-
+                console.log("toto " + result )
+                nickname.updateCheck( result )
             }
             onEmailExists:{
 

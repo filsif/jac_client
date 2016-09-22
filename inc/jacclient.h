@@ -33,8 +33,8 @@ signals:
 
     void                            login                               ( );
     void                            logout                              ( );
-    void                            nicknameAlreadyExists               ( bool );
-    void                            emailAlreadyExists                  ( bool );
+    void                            nicknameAlreadyExists               ( bool result );
+    void                            emailAlreadyExists                  ( bool result );
 public:
                                     JacClient                           ( QObject * parent  = Q_NULLPTR);
     virtual                         ~JacClient                          ( );
