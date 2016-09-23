@@ -36,12 +36,24 @@ Row{
             {
                 imageSuccess.visible = false
                 imageWrong.visible = true
+                textInfo.text = "Cannot be empty"
             }
             else
             {
                 container.checkValue( textInscription.text   )
             }
         }
+       /* MouseArea {
+            anchors.fill: parent
+            id : mousearea
+
+            onClicked:{
+                imageSuccess.visible = false
+                imageWrong.visible = false
+                textInfo.text = ""
+
+            }
+        }*/
     }
     Image{
         id       : imageSuccess
@@ -59,18 +71,24 @@ Row{
         visible  : false
     }
 
-    function updateCheck(obj)
+    Text{
+        id      : textInfo
+    }
+
+    function updateCheck(obj , txt )
     {
         console.log( "tutu " + obj)
         if ( obj === false )
         {
             imageSuccess.visible = true
             imageWrong.visible = false
+            textInfo.text = ""
         }
         else
         {
             imageSuccess.visible = false
             imageWrong.visible = true
+            textInfo.text = txt
         }
     }
 }

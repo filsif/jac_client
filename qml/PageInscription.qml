@@ -107,8 +107,16 @@ Rectangle{
         Connections{
             target : nickname
             onCheckValue:{
-                console.log("titi")
+
                 mainWidget.CheckNickname( str )
+            }
+        }
+
+        Connections{
+            target : email
+            onCheckValue:{
+
+                mainWidget.CheckEmail( str )
             }
         }
 
@@ -116,10 +124,11 @@ Rectangle{
             target : mainWidget
 
             onNicknameExists:{
-                console.log("toto " + result )
-                nickname.updateCheck( result )
+
+                nickname.updateCheck( result , "Already exists" )
             }
             onEmailExists:{
+                email.updateCheck( result , "Already exists")
 
             }
         }
