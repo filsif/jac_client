@@ -10,8 +10,10 @@ Row{
 
     spacing : 5
 
-    property bool canBeEmpty : True
+    property bool canBeEmpty    : true
+    property bool isHidden      : false
     property string phText
+    property string myText      : textInscription.text
     signal checkValue( string str )
 
     TextField {
@@ -22,6 +24,12 @@ Row{
         color                       : "#000000"
         font.pixelSize              : 12
         placeholderText             : container.phText
+        echoMode                    : {
+                                        if ( isHidden )
+                                            return TextInput.Password
+                                        else
+                                            return TextInput.Normal
+                                        }
         background: Rectangle{
             color :"white"
             border.color: nickname.textInscription ? "#0083b3" : "#c0c0c0"
@@ -73,11 +81,13 @@ Row{
 
     Text{
         id      : textInfo
+        height  : 32
+
+        color   : "red"
     }
 
     function updateCheck(obj , txt )
-    {
-        console.log( "tutu " + obj)
+    {        
         if ( obj === false )
         {
             imageSuccess.visible = true

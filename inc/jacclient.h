@@ -18,6 +18,7 @@
 #include "addboardgamequery.h"
 #include "checknicknamequery.h"
 #include "checkemailquery.h"
+#include "createuserquery.h"
 
 // libbgg
 
@@ -35,6 +36,7 @@ signals:
     void                            logout                              ( );
     void                            nicknameAlreadyExists               ( bool result );
     void                            emailAlreadyExists                  ( bool result );
+    void                            userCreated                         ( bool result );
 public:
                                     JacClient                           ( QObject * parent  = Q_NULLPTR);
     virtual                         ~JacClient                          ( );
@@ -46,6 +48,7 @@ public:
     int                             logoutJac                           ( );
     int                             checkNickname                       ( QString );
     int                             checkEmail                          ( QString );
+    int                             createUser                          ( QObject *);
 
 
     int                             addBoardGame                        ( Bgg::BoardGameInfo_sp bg_info );
@@ -71,6 +74,7 @@ private slots:
     void                            on_result_boardgame_added            ( AddBoardGameQuery * );
     void                            on_result_check_nickname             ( CheckNicknameQuery *, bool );
     void                            on_result_check_email                ( CheckEmailQuery *,bool );
+    void                            on_result_create_user                ( CreateUserQuery * , bool );
 };
 
 }

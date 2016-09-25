@@ -98,6 +98,7 @@ public:
     Q_INVOKABLE void    CheckNickname( QString);
     Q_INVOKABLE void    Search();
     Q_INVOKABLE void    SearchBoardGames( SearchResult *obj );
+    Q_INVOKABLE void    CreateUser  ( QObject * datas );
 
 
 

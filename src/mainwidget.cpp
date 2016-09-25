@@ -86,7 +86,13 @@ MainWidget::CheckEmail( QString email )
 void
 MainWidget::CheckNickname( QString nickname )
 {
-   m_client->checkNickname( nickname );
+    m_client->checkNickname( nickname );
+}
+
+void
+MainWidget::CreateUser( QObject * datas)
+{
+    m_client->createUser( datas );
 }
 
 /*

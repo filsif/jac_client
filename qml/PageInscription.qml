@@ -6,117 +6,145 @@ Rectangle{
     id : pageInscription
     anchors.fill: parent
     color : "#00aff0"
+    QtObject
+    {
+        id : inscriptionDatas
+
+        property string username    : username.myText
+        property string email       : email.myText
+        property string password    : password.myText
+        property string firstname   : firstname.myText
+        property string lastname    : lastname.myText
+        property string address     : address.myText
+        property string birthdate   : birthdate.myText
+        property string mobilephone : mobilephone.myText
+        property string bggnick     : bggnick.myText
+    }
+
     Column
     {
-
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: parent.height / 3
-        anchors.horizontalCenter: parent.horizontalCenter
-
         width : parent.width
         spacing : 5
 
-
         RowInscription{
-            id : nickname
+            id : username
             canBeEmpty : false
-            phText : "Pseudo Jouons à Châteauroux"
-
-
-
+            phText : qsTr("Pseudo Jouons à Châteauroux")
         }
-
         RowInscription{
             id : email
-            anchors.top : nickname.bottom
+            anchors.top : username.bottom
             canBeEmpty : false
-            phText : "E-mail"
+            phText : qsTr("E-mail")
+        }
+        RowInscription{
+            id : password
+            anchors.top : email.bottom
+            canBeEmpty: false
+            isHidden : true
+            phText : qsTr("Mot de passe")
+        }
+        RowInscription{
+            id : passwordconfirm
+            anchors.top : password.bottom
+            canBeEmpty: false
+            isHidden : true
+            phText : qsTr("Confirmer mot de passe")
+        }
+        RowInscription{
+            id : firstname
+            anchors.top : passwordconfirm.bottom
+            phText : qsTr("Prénom")
+        }
+        RowInscription{
+            id : lastname
+            anchors.top : firstname.bottom
+            phText : qsTr("Nom")
+        }
+        RowInscription{
+            id : birthdate
+            anchors.top : lastname.bottom
+            phText : qsTr("Date de naissance")
+        }
+        RowInscription{
+            id : address
+            anchors.top : birthdate.bottom
+            phText : qsTr("Adresse")
+        }
+        RowInscription{
+            id : mobilephone
+            anchors.top : address.bottom
+            phText : qsTr("Numéro de mobile")
+        }
+        RowInscription{
+            id : bggnick
+            anchors.top : mobilephone.bottom
+            phText : qsTr("Pseudo Board Game Geek")
         }
 
 
-/*
-
-        TextField {
-            id                          : email
-            width                       : parent.width - 150
-            height                      : 30
-            x                           : 25
-            color                       : "#000000"
-            font.pixelSize              : 12
-            placeholderText             : "e-mail"
-            background: Rectangle{
-                color :"white"
-                border.color: email.enabled ? "#0083b3" : "#c0c0c0"
-                radius : 3
+        LoginButton{
+            anchors.top : bggnick.bottom
+            id : buttonCreer
+            text : "Créer"
+            width: parent.width - 100
+            x : 50
+            height: 30
+            disabled: false
+            onClicked:{
+                mainWidget.CreateUser( inscriptionDatas )
             }
 
-            onEditingFinished:{
-                if ( email.text == "" )
-                {
-
-                }
-                else
-                {
-                    mainWidget.CheckEmail( email.text )
-                }
-            }
-        }
-
-        TextField {
-            id                          : password
-            width                       : parent.width - 150
-            x                           : 25
-            height                      : 30
-            color                       : "#000000"
-            font.pixelSize              : 12
-            echoMode                    : TextInput.Password
-            placeholderText             : "Mot de passe"
-            background: Rectangle{
-                color :"white"
-                border.color: password.enabled ? "#0083b3" : "#c0c0c0"
-                radius : 3
-            }
-
-            onEditingFinished:{
-                console.log( password.text )
-            }
-        }
-
-            TextField {
-                id                          : passwordconfirm
-                width                       : parent.width - 50
-                x                           : 25
-                height                      : 30
-                color                       : "#000000"
-                font.pixelSize              : 12
-                echoMode                    : TextInput.Password
-                placeholderText             : "Confirmer mot de passe"
-                background: Rectangle{
-                    color :"white"
-                    border.color: passwordconfirm.enabled ? "#0083b3" : "#c0c0c0"
-                    radius : 3
-                }
-
-                onEditingFinished:{
-                    console.log( passwordconfirm.text )
-                }
         }
 
 
-*/
+
         Connections{
             target : nickname
             onCheckValue:{
-
                 mainWidget.CheckNickname( str )
+            }
+        }
+        Connections{
+            target : email
+            onCheckValue:{
+                mainWidget.CheckEmail( str )
             }
         }
 
         Connections{
-            target : email
+            target : password
             onCheckValue:{
 
-                mainWidget.CheckEmail( str )
+                if ( str !== passwordconfirm.myText )
+                {
+
+                    password.updateCheck( true , qsTr("password did not match") )
+                    passwordconfirm.updateCheck( true , qsTr("password did not match") )
+                }
+                else
+                {
+
+                    password.updateCheck( false  )
+                    passwordconfirm.updateCheck( false  )
+
+                }
+            }
+        }
+        Connections{
+            target : passwordconfirm
+            onCheckValue:{
+
+                if ( str !== password.myText )
+                {
+                    password.updateCheck( true , qsTr("password did not match") )
+                    passwordconfirm.updateCheck( true , qsTr("password did not match") )
+                }
+                else
+                {
+                    password.updateCheck( false )
+                    passwordconfirm.updateCheck( false  )
+                }
             }
         }
 
@@ -125,10 +153,10 @@ Rectangle{
 
             onNicknameExists:{
 
-                nickname.updateCheck( result , "Already exists" )
+                nickname.updateCheck( result , qsTr("Already exists") )
             }
             onEmailExists:{
-                email.updateCheck( result , "Already exists")
+                email.updateCheck( result , qsTr("Already exists") )
 
             }
         }

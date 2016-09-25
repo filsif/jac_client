@@ -79,6 +79,15 @@ JacClient::checkEmail( QString email)
     return 0;
 }
 
+int
+JacClient::createUser( QObject * datas)
+{
+    CreateUserQuery *query = new CreateUserQuery( *this , datas );
+    connect ( query , SIGNAL(results(CreateUserQuery * , bool )) , this , SLOT(on_result_create_user(CreateUserQuery * , bool )));
+    return 0;
+
+}
+
 
 
 int
@@ -132,6 +141,13 @@ void
 JacClient::on_result_check_email( CheckEmailQuery * query ,bool already )
 {
     emit emailAlreadyExists( already );
+    query->deleteLater();
+}
+
+void
+JacClient::on_result_create_user( CreateUserQuery * query ,bool created )
+{
+    emit userCreated( created );
     query->deleteLater();
 }
 
