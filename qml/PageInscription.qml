@@ -21,8 +21,24 @@ Rectangle{
         property string bggnick     : bggnick.myText
     }
 
+    Image
+    {
+        id: returnMain
+        anchors.top: parent.top
+        source: "qrc:///images/arrows.png"
+        MouseArea {
+            anchors.fill : parent
+            onClicked: {
+                mainpage.state = "LOGIN"
+
+            }
+        }
+
+    }
+
     Column
     {
+        anchors.top : returnMain.bottom
         width : parent.width
         spacing : 5
 
@@ -153,7 +169,7 @@ Rectangle{
 
             onNicknameExists:{
 
-                nickname.updateCheck( result , qsTr("Already exists") )
+                username.updateCheck( result , qsTr("Already exists") )
             }
             onEmailExists:{
                 email.updateCheck( result , qsTr("Already exists") )
