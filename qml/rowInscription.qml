@@ -32,7 +32,7 @@ Row{
                                         }
         background: Rectangle{
             color :"white"
-            border.color: nickname.textInscription ? "#0083b3" : "#c0c0c0"
+            border.color: textInscription.enabled ? "#0083b3" : "#c0c0c0"
             radius : 3
         }
 

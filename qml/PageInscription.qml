@@ -100,7 +100,7 @@ Rectangle{
 
 
         Connections{
-            target : nickname
+            target : username
             onCheckValue:{
                 mainWidget.CheckNickname( str )
             }

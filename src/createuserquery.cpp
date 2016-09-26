@@ -72,7 +72,7 @@ m_client(jac)
 
     QHttpPart data_part_bggnick;
     data_part_bggnick.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"bggnickname\""));
-    QVariant bggnick = datas->property("bggnickname");
+    QVariant bggnick = datas->property("bggnick");
     data_part_bggnick.setBody( bggnick.toString().toUtf8());
     multipart->append( data_part_bggnick );
 
