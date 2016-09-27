@@ -32,7 +32,7 @@ MainWidget::MainWidget(QWindow *parent )
 
     // Init Bgg API
 
-    m_bgg_api = new Bgg::BggApi( );
+    m_bgg_api = new Bgg::BggApi( Q_NULLPTR , Bgg::BGG_V2 );
 
     // Setup context
     m_context = rootContext();
@@ -106,15 +106,13 @@ MainWidget::on_login()
 
 void
 MainWidget::on_email_exists( bool result )
-{
-    qDebug() <<" result : ";
+{    
     emit emailExists( result );
 }
 
 void
 MainWidget::on_nickname_exists( bool result )
 {
-
     emit nicknameExists( result );
 }
 
@@ -127,13 +125,16 @@ MainWidget::on_logout()
 void
 MainWidget::Search()
 {
-    Bgg::SearchCollectionQuery * query = m_bgg_api->searchCollectionQuery( "filsif");
-
-    if(query)
+    if ( m_client->bggNickname().compare("") != 0 )
     {
-       emit searchBegin();
+        Bgg::SearchCollectionQuery * query = m_bgg_api->searchCollectionQuery( m_client->bggNickname() );
 
-       connect(query, SIGNAL(results(Bgg::SearchCollectionQuery *)), this, SLOT(on_search_collection_results(Bgg::SearchCollectionQuery *)));
+        if(query)
+        {
+           emit searchBegin();
+
+           connect(query, SIGNAL(results(Bgg::SearchCollectionQuery *)), this, SLOT(on_search_collection_results(Bgg::SearchCollectionQuery *)));
+        }
     }
 }
 
@@ -151,9 +152,6 @@ MainWidget::on_search_collection_results(Bgg::SearchCollectionQuery * query )
         else
         {
             SearchResult * obj = new SearchResult();
-
-            qDebug() << "<MainWidget::on_search_collection_results> : " ;
-
             obj->init(query);
             emit searchFetched(obj);
         }

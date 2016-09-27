@@ -37,6 +37,11 @@ signals:
     void                            nicknameAlreadyExists               ( bool result );
     void                            emailAlreadyExists                  ( bool result );
     void                            userCreated                         ( bool result );
+
+public :
+    // access to parameters of current logged user
+
+    inline const QString &          bggNickname                         ( ) const { return m_bgg_nickname ; }
 public:
                                     JacClient                           ( QObject * parent  = Q_NULLPTR);
     virtual                         ~JacClient                          ( );
@@ -75,6 +80,18 @@ private slots:
     void                            on_result_check_nickname             ( CheckNicknameQuery *, bool );
     void                            on_result_check_email                ( CheckEmailQuery *,bool );
     void                            on_result_create_user                ( CreateUserQuery * , bool );
+
+
+private :
+    // parameters of current logged user
+    QString                         m_bgg_nickname;
+    QString                         m_firstname;
+    QString                         m_lastname;
+    QString                         m_username;
+    QString                         m_address;
+    QDate                           m_birthdate;
+    QString                         m_email;
+    QString                         m_mobile_phone;
 };
 
 }
