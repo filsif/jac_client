@@ -48,12 +48,10 @@ CheckEmailQuery::on_check_email_finished()
       qWarning() << "Network error. Error code is : " << m_reply->error();
   }
   else
-  {
-      qDebug() << "pouet";
+  {      
       QJsonDocument jsonResponse = QJsonDocument::fromJson( m_reply->readAll() );
       if ( !jsonResponse.isEmpty() )
-      {
-          qDebug() << "pip";
+      {          
             QJsonObject jsonObject = jsonResponse.object();
             bool val = jsonObject.value("result").toBool();
             emit results( this , val );

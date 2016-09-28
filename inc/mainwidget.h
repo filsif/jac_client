@@ -9,6 +9,7 @@
 
 #include "jacclient.h"
 #include "libbgg/api.h"
+#include "libbgg/bgg.h"
 
 
 class SearchResult
@@ -35,7 +36,11 @@ public:
 
 
         foreach(Bgg::SearchSummary_sp summary, query->results())
-            m_ids << summary->id();
+        {
+            Bgg::search_coll_infos ifos;
+            ifos.id = summary->id();
+            m_ids << ifos;
+        }
     }
 
     void init(Bgg::SearchCollectionQuery *query)
@@ -44,12 +49,23 @@ public:
 
 
         foreach(Bgg::SearchCollectionSummary_sp summary, query->results())
-            m_ids << summary->id();
+        {
+            Bgg::search_coll_infos ifos;
+            ifos.id = summary->id();
+            const Bgg::VersionInfoList_sp & versions = summary->versions();
+
+            foreach( Bgg::VersionInfo_sp v , versions) //$$ TODO : only one element at this time
+            {
+                ifos.id = v->versionId();
+            }
+
+            m_ids << ifos;
+        }
     }
 
 
 
-    const QList<int>& ids() const
+    const Bgg::search_coll_infosList & ids() const
     {
         return m_ids;
     }
@@ -58,8 +74,11 @@ public:
     void finished();
 
 
-private:
-    QList<int> m_ids;
+public:
+
+
+private :
+    Bgg::search_coll_infosList m_ids;
 };
 
 

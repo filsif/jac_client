@@ -47,13 +47,10 @@ CheckNicknameQuery::on_check_nickname_finished()
     }
     else
     {
-
-
         QByteArray ba = m_reply->readAll();
         QJsonDocument jsonResponse = QJsonDocument::fromJson( ba  );
         if ( !jsonResponse.isEmpty() )
-        {
-            qDebug()<<"pip";
+        {            
               QJsonObject jsonObject = jsonResponse.object();
               bool val = jsonObject.value("result").toBool();
               emit results( this , val );

@@ -167,7 +167,7 @@ MainWidget::SearchBoardGames( SearchResult * result )
     if(!result)
         return;
 
-    Bgg::BoardGameQuery * query = m_bgg_api->boardgameQuery(result->ids() );
+    Bgg::BoardGameQuery * query = m_bgg_api->boardgameQuery(result->ids() , true );
     if(query)
        connect(query, SIGNAL(result(Bgg::BoardGameQuery *)), this, SLOT(on_boardgame_result(Bgg::BoardGameQuery *)));
 }

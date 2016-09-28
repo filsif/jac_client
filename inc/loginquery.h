@@ -18,7 +18,7 @@ public:
 
 signals :
 
-    void                results                     ( LoginQuery * , bool logged );
+    void                results                     ( LoginQuery * , bool logged , QString & bgg_nick);
 
 protected :
 

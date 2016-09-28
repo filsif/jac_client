@@ -1,5 +1,8 @@
 #include "loginquery.h"
 #include <QNetworkRequest>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include "jacclient.h"
 
 
@@ -36,6 +39,7 @@ LoginQuery::on_login_finished()
 {
 
     bool logged = false;
+    QString bgg_nick("");
 
 
     if (m_reply->error() != QNetworkReply::NoError)
@@ -46,7 +50,45 @@ LoginQuery::on_login_finished()
     }
     else
     {
-        qDebug()<< "REPLY " << m_reply->readAll();
+        /*
+         [
+            {"model": "auth.user", "pk": 1, "fields":
+                                                {   "first_name": "Fr\u00e9d\u00e9ric",
+                                                    "last_name": "MAZUR"
+                                                }
+            },
+            {"model": "server.player", "pk": 1, "fields":
+                                                {   "address": "1 La Roche 36350 La P\u00e9rouille",
+                                                    "bgg_nickname": "filsif"
+                                                }
+            }
+         ]
+
+        */
+
+
+        QJsonDocument jsonResponse = QJsonDocument::fromJson( m_reply->readAll() );
+        if ( !jsonResponse.isEmpty() )
+        {
+
+              QJsonArray jsonArray = jsonResponse.array();
+              foreach (const QJsonValue & value, jsonArray)
+              {
+                   QJsonObject obj = value.toObject();
+
+                   if ( obj["model"].toString().compare("server.player") == 0)
+                   {
+                       QJsonValue fields = obj["fields"];
+
+                       QJsonObject field_obj = fields.toObject();
+
+                       bgg_nick = field_obj["bgg_nickname"].toString();
+
+
+                   }
+
+              }
+        }
 
         logged = true;
 
@@ -55,7 +97,7 @@ LoginQuery::on_login_finished()
 
 
 
-    emit results( this, logged);
+    emit results( this, logged , bgg_nick );
 
     m_reply->deleteLater();
     m_reply = Q_NULLPTR;

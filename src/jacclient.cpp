@@ -52,7 +52,7 @@ int
 JacClient::loginJac( QString login , QString  password )
 {
     LoginQuery *query = new LoginQuery(*this,  login, password );
-    connect ( query , SIGNAL(results(LoginQuery * , bool)) , this , SLOT(on_result_login_finished(LoginQuery * , bool)));
+    connect ( query , SIGNAL(results(LoginQuery * , bool, QString &)) , this , SLOT(on_result_login_finished(LoginQuery * , bool, QString &)));
     return 0;
 }
 
@@ -103,10 +103,11 @@ JacClient::addBoardGame( Bgg::BoardGameInfo_sp bg_info )
 
 
 void
-JacClient::on_result_login_finished( LoginQuery *query, bool logged)
+JacClient::on_result_login_finished( LoginQuery *query, bool logged , QString & bgg_nick )
 {
     if ( logged )
     {
+        m_bgg_nickname = bgg_nick;
         emit login();
     }
     query->deleteLater();
@@ -131,11 +132,9 @@ JacClient::on_result_boardgame_added(AddBoardGameQuery * query )
 
 void
 JacClient::on_result_check_nickname( CheckNicknameQuery * query ,bool already )
-{
-    qDebug()<<"prout";
+{    
     emit nicknameAlreadyExists( already );
     query->deleteLater();
-
 }
 
 void

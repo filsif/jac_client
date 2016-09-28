@@ -74,7 +74,7 @@ private :
 private slots:
 
 
-    void                            on_result_login_finished             ( LoginQuery * , bool );
+    void                            on_result_login_finished             ( LoginQuery * , bool , QString & );
     void                            on_result_logout_finished            ( LogoutQuery * );
     void                            on_result_boardgame_added            ( AddBoardGameQuery * );
     void                            on_result_check_nickname             ( CheckNicknameQuery *, bool );

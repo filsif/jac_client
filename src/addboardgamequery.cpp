@@ -124,6 +124,8 @@ m_client(jac)
         multipart->append( data_part_genre );
     }
 
+    // ajouter les versions
+
     QNetworkRequest request;
     request.setUrl(url);
     //request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
