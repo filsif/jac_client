@@ -56,7 +56,7 @@ public:
 
             foreach( Bgg::VersionInfo_sp v , versions) //$$ TODO : only one element at this time
             {
-                ifos.id = v->versionId();
+                ifos.version_id = v->versionId();
             }
 
             m_ids << ifos;

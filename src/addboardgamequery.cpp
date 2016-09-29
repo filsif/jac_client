@@ -126,6 +126,39 @@ m_client(jac)
 
     // ajouter les versions
 
+    const Bgg::VersionInfoList_sp & versions = m_bg_infos->versions();
+    foreach( Bgg::VersionInfo_sp version , versions)
+    {
+        QPixmap pm_cover_v = version->cover( );
+        if(!pm_cover_v.isNull())
+        {
+            QByteArray bArray;
+            QBuffer buffer(&bArray);
+            buffer.open(QIODevice::WriteOnly);
+            pm_cover_v.save(&buffer, "JPG");
+            QHttpPart cover_part;
+            cover_part.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
+            cover_part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(QString("form-data; name=\"cover_%1\"; filename=\"cover_%2.jpg\"").arg( version->versionId(),version->versionId())));
+            cover_part.setBody( bArray);
+            multipart->append(cover_part);
+        }
+
+        QPixmap pm_thumbnail_v = version->thumbnail( );
+        if(!pm_thumbnail_v.isNull())
+        {
+            QByteArray bArray;
+            QBuffer buffer(&bArray);
+            buffer.open(QIODevice::WriteOnly);
+            pm_thumbnail_v.save(&buffer, "JPG");
+            QHttpPart thumbnail_part;
+            thumbnail_part.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
+            thumbnail_part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(QString("form-data; name=\"thumbnail_%1\"; filename=\"thumbnail_%2.jpg\"").arg(version->versionId() , version->versionId())));
+            thumbnail_part.setBody( bArray);
+            multipart->append(thumbnail_part);
+        }
+
+    }
+
     QNetworkRequest request;
     request.setUrl(url);
     //request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
