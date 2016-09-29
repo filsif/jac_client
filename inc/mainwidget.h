@@ -59,6 +59,9 @@ public:
                 ifos.version_id = v->versionId();
             }
 
+            /*if ( ifos.id != 121921 )
+                continue;*/
+
             m_ids << ifos;
         }
     }
