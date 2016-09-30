@@ -25,26 +25,7 @@ m_client(jac)
     QUrl url = m_client.baseUrl();
     QString str = QString("boardgame/add/");
     url = url.resolved( str );
-/*
-    QUrlQuery params;
 
-    params.addQueryItem("name"          , m_bg_infos->title());
-    params.addQueryItem("year"          , QString("%1").arg(m_bg_infos->year().year()));
-    params.addQueryItem("synopsis"      ,m_bg_infos->synopsis());
-    params.addQueryItem("min_age"       , QString("%1").arg(m_bg_infos->minAge()));
-    params.addQueryItem("min_player"    , QString("%1").arg(m_bg_infos->minPlayer()));
-    params.addQueryItem("max_player"    , QString("%1").arg(m_bg_infos->maxPlayer()));
-    params.addQueryItem("playing_time"  , QString("%1").arg(m_bg_infos->duration()));
-    params.addQueryItem("bgg_id"        , QString("%1").arg(m_bg_infos->boardgameId()));
-
-    const QList<QString> &genres = m_bg_infos->genres();
-
-    for ( int i = 0 ; i < genres.length() ; i++ )
-    {
-        params.addQueryItem("genre"        , genres[i] );
-
-    }
-*/
 
     QPixmap pm_cover = m_bg_infos->cover( );
     if(!pm_cover.isNull())
@@ -74,6 +55,7 @@ m_client(jac)
         multipart->append(thumbnail_part);
     }
 
+    /*
     QHttpPart data_part_name;
     data_part_name.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"name\""));
     data_part_name.setBody( m_bg_infos->title().toUtf8());
@@ -123,7 +105,7 @@ m_client(jac)
         data_part_genre.setBody( genres[i].toUtf8());
         multipart->append( data_part_genre );
     }
-
+*/
     // ajouter les versions
 
     const Bgg::VersionInfoList_sp & versions = m_bg_infos->versions();
@@ -157,11 +139,21 @@ m_client(jac)
             multipart->append(thumbnail_part);
         }
 
+
     }
+    // ajouter les datas json
+
+
+
+    QHttpPart metaPart;
+    metaPart.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    metaPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"metadata\""));
+    metaPart.setBody(bg_infos->toJson());
+    multipart->append(metaPart);
 
     QNetworkRequest request;
     request.setUrl(url);
-    //request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
 
     m_reply = jac.postReply( request , multipart );
     multipart->setParent(m_reply); // delete the multipart with the reply

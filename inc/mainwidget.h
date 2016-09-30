@@ -52,6 +52,7 @@ public:
         {
             Bgg::search_coll_infos ifos;
             ifos.id = summary->id();
+            ifos.name = summary->title();
             const Bgg::VersionInfoList_sp & versions = summary->versions();
 
             foreach( Bgg::VersionInfo_sp v , versions) //$$ TODO : only one element at this time
