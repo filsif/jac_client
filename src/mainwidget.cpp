@@ -29,6 +29,7 @@ MainWidget::MainWidget(QWindow *parent )
     connect ( m_client , SIGNAL(logout()) , this , SLOT(on_logout()));
     connect ( m_client , SIGNAL(emailAlreadyExists(bool)) , this , SLOT(on_email_exists(bool)));
     connect ( m_client , SIGNAL(nicknameAlreadyExists(bool)) , this , SLOT(on_nickname_exists(bool)));
+    connect ( m_client , SIGNAL(refreshCompleted( )) , this , SLOT(on_refresh_boardgames( )));
 
     // Init Bgg API
 
@@ -93,6 +94,12 @@ void
 MainWidget::CreateUser( QObject * datas)
 {
     m_client->createUser( datas );
+}
+
+void
+MainWidget::refreshBoardGames( )
+{
+    m_client->refreshBoardGames();
 }
 
 /*
@@ -219,5 +226,11 @@ MainWidget::on_image_result( Bgg::ImageQuery * query )
         }
     }
     query->deleteLater();
+
+}
+
+void
+MainWidget::on_refresh_boardgames( )
+{
 
 }

@@ -1,8 +1,44 @@
 import QtQuick 2.0
 
+import fr.jac.client 1.0
+
 Item {
 
     // Footer
+
+    // *** MovieDataModel implemented in C++ side ***
+    BoardGameDataModel{
+        id: boardgameModel
+    }
+
+
+    ListView {
+        property int nb_results: 0
+        property int totalResults:0
+
+        id: listView
+        width: 180; height: 200
+        anchors.fill: parent
+        spacing: -60
+        model: boardgameModel
+        delegate:BoardGameDelegate {
+            id: boardgameDelegate
+            name: model.title
+        }
+
+        highlightFollowsCurrentItem: true
+        highlightRangeMode: ListView.StrictlyEnforceRange
+        highlightMoveDuration: 400
+        preferredHighlightBegin: 50
+        preferredHighlightEnd: 100
+        cacheBuffer: 4000
+
+        onCurrentIndexChanged: {
+            console.log("currentIndex: ", currentIndex)
+        }
+    }
+
+
 
     Row
     {
@@ -60,7 +96,8 @@ Item {
             }
 
 
-        }
+        }        
+
     }
 
 }

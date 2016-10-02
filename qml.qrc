@@ -28,5 +28,6 @@
         <file>images/success.png</file>
         <file>qml/RowInscription.qml</file>
         <file>images/arrows.png</file>
+        <file>qml/BoardGameDelegate.qml</file>
     </qresource>
 </RCC>

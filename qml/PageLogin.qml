@@ -139,6 +139,9 @@ Rectangle{
             console.log( "logged" )
 
             mainpage.state = "PRINCIPALE"
+
+            mainWidget.refreshBoardGames()
+
         }
         onInscription: {
             mainpage.state = "INSCRIPTION"

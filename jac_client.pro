@@ -20,7 +20,10 @@ SOURCES += src/main.cpp \
     src/addboardgamequery.cpp \
     src/checknicknamequery.cpp \
     src/checkemailquery.cpp \
-    src/createuserquery.cpp
+    src/createuserquery.cpp \
+    src/myboardgamesquery.cpp \
+    src/boardgamedata.cpp \
+    src/boardgamedatamodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -62,7 +65,10 @@ HEADERS += \
     inc/addboardgamequery.h \
     inc/checknicknamequery.h \
     inc/checkemailquery.h \
-    inc/createuserquery.h
+    inc/createuserquery.h \
+    inc/myboardgamesquery.h \
+    inc/boardgamedata.h \
+    inc/boardgamedatamodel.h
 
 	
 	INCLUDEPATH += . \

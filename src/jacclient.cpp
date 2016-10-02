@@ -89,6 +89,15 @@ JacClient::createUser( QObject * datas)
 
 }
 
+int
+JacClient::refreshBoardGames( )
+{
+    MyBoardGamesQuery *query = new MyBoardGamesQuery( *this  );
+    connect ( query , SIGNAL(results(MyBoardGamesQuery *  )) , this , SLOT(on_result_refresh_boardgames(MyBoardGamesQuery*)));
+    return 0;
+
+}
+
 
 
 int
@@ -148,6 +157,12 @@ void
 JacClient::on_result_create_user( CreateUserQuery * query ,bool created )
 {
     emit userCreated( created );
+    query->deleteLater();
+}
+void
+JacClient::on_result_refresh_boardgames( MyBoardGamesQuery *query)
+{
+    emit refreshCompleted();
     query->deleteLater();
 }
 

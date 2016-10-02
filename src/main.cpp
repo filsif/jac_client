@@ -5,7 +5,8 @@
 #include "jacclient.h"
 #include "mainwidget.h"
 #include "mydevice.h"
-
+#include "boardgamedata.h"
+#include "boardgamedatamodel.h"
 
 
 
@@ -21,6 +22,8 @@ int main(int argc, char *argv[])
 
 
     qmlRegisterType<MyDevice>("mydevice", 1, 0, "MyDevice");
+    qmlRegisterType<BoardGameData>("fr.jac.client", 1,0,"BoardGameData");
+    qmlRegisterType<BoardGameDataModel>("fr.jac.client", 1,0,"BoardGameDataModel");
 
 
 
