@@ -103,11 +103,12 @@ signals:
     void    logout();
     void    inscription();
 
-    void    emailExists( bool result);
-    void    nicknameExists( bool result );
+    void    emailExists         ( bool result );
+    void    nicknameExists      ( bool result );
 
-    void    searchBegin();
-    void    searchFetched( SearchResult * result );
+    void    searchBegin         ( );
+    void    searchFetched       ( SearchResult * result );
+    void    boardGameData       ( BoardGameData * boardgame );
 
 public:
     MainWidget(QWindow *parent = 0);
@@ -136,7 +137,7 @@ private slots:
     void    on_search_collection_results    ( Bgg::SearchCollectionQuery * );
     void    on_boardgame_result             ( Bgg::BoardGameQuery * );
     void    on_image_result                 ( Bgg::ImageQuery * query );
-    void    on_refresh_boardgames           ( );
+    void    on_refresh_boardgames           ( BoardGameData *);
 
 
 private slots:

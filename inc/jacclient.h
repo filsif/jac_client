@@ -38,7 +38,7 @@ signals:
     void                            nicknameAlreadyExists               ( bool result );
     void                            emailAlreadyExists                  ( bool result );
     void                            userCreated                         ( bool result );
-    void                            refreshCompleted                    ( );
+    void                            refreshCompleted                    ( BoardGameData *);
 
 public :
     // access to parameters of current logged user

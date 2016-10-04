@@ -1,4 +1,6 @@
-#include "inc/boardgamedata.h"
+#include <QJsonValue>
+#include <QJsonArray>
+#include "boardgamedata.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // BoardGameData
@@ -6,28 +8,88 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 void
-BoardGameData::setBoardGameInfo( )
+BoardGameData::setBoardGameInfo( const QJsonObject & obj )
 {
-    /*
-    m_title = movie->originalTitle();
-    m_releaseDate = movie->releaseDate();
-    m_overview = movie->overview();
-    m_voteAverage = movie->voteAverage();
+    /* SYNTAX :
+                            {
+                                "model": "server.usergame",
+                                "pk": 1,
+                                "fields": {
+                                    "boardgame": [{
+                                        "model": "server.boardgame",
+                                        "pk": 1,
+                                        "fields": {
+                                            "cover": "",
+                                            "name": "Abyss",
+                                            "thumbnail": "http://127.0.0.1/snapshot_1_234390.jpg",
+                                            "genres": [1, 4, 6],
+                                            "playing_time": 60,
+                                            "bgg_id": 155987,
+                                            "year": 2014,
+                                            "synopsis": "The Abyss power is once again vacant, so the time has come to get your hands on the throne and its privileges. Use all of your cunning to win or buy votes in the Council. Recruit the most influential Lords and abuse their powers to take control of the most strategic territories. Finally, impose yourself as the only one able to rule the Abyssal people! Abyss is a game of development, combination and collection in which players try to take control of strategic locations in an underwater city. To achieve this, players must develop on three levels: first by collecting allies, then using them to recruit Lords of the Abyss, who will then grant access to different parts of the city. Players acquire cards through a draft of sorts, and the Lords of the Abyss acquired on those cards grant special powers to the cardholder \u2014 but once you use the cards to acquire a location, that power is shut off, so players need to time their land grabs well in order to put themselves in the best position for when the game ends. ",
+                                            "min_player": 2,
+                                            "min_age": 0,
+                                            "max_player": 4
+                                        }
+                                    }],
+                                    "user": 1,
+                                    "owned": true,
+                                    "qr_code": null,
+                                    "nfc_tag": null,
+                                    "explanation": false,
+                                    "bg_version": [{
+                                        "model": "server.boardgameversion",
+                                        "pk": 1,
+                                        "fields": {
+                                            "cover": null,
+                                            "name": "French first edition",
+                                            "thumbnail": null,
+                                            "boardgame": 1,
+                                            "year": 2014,
+                                            "bgg_version_id": 234390,
+                                            "language": "French"
+                                        }
+                                    }]
+                                }
+                            }
+*/
 
-    QString fn= g_tempDir->path() + "/" + QString("%1_%2.jpg").arg(movie->id()).arg(movie->originalLanguage());
 
-    qWarning() << "fn : " << fn;
-    QPixmap pm = movie->poster(TMDB_NS::PosterSize_w342);
-    if(!pm.isNull())  {
-        if(pm.save(fn, "JPG"))
-            m_poster = QUrl::fromLocalFile(fn).url();
-        else
-            qWarning() << "error not saving the file " << fn ;
+    QJsonValue fields = obj["fields"];
+
+    QJsonObject fields_obj = fields.toObject();
+
+    QJsonValue bg  = fields_obj["boardgame"];
+    QJsonValue version = fields_obj["version"];
+
+    if ( !bg.isNull())
+    {
+        QJsonArray bg_array = bg.toArray();
+
+        QJsonValue b = bg_array[0];
+        QJsonObject bg_obj = b.toObject();
+        QJsonValue bg_fields = bg_obj["fields"];
+        QJsonObject bg_fields_obj = bg_fields.toObject();
+
+        m_title = bg_fields_obj["name"].toString();
+        m_synopsis = bg_fields_obj["synopsis"].toString();
+        m_min_age = bg_fields_obj["min_age"].toInt();
+        m_min_player = bg_fields_obj["min_player"].toInt();
+        m_max_player = bg_fields_obj["max_player"].toInt();
+        m_duration = bg_fields_obj["playing_time"].toInt();
 
     }
-    else {
-        m_poster = "qrc:///images/no-poster.jpg";
+    if (!version.isNull())
+    {
+        QJsonArray version_array = version.toArray();
+
+        QJsonValue v = version_array[0];
+        QJsonObject version_obj = v.toObject();
+        QJsonValue version_fields = version_obj["fields"];
+        QJsonObject version_fields_obj = version_fields.toObject();
+
+        m_version_title = version_fields_obj["name"].toString();
+
     }
 
-    */
 }

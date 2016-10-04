@@ -8,6 +8,8 @@
 #include <QNetworkReply>
 #include <QString>
 
+#include "boardgamedata.h"
+
 // libbgg
 
 #include <libbgg/models.h>
@@ -28,11 +30,15 @@ signals :
 
     void                results                     ( MyBoardGamesQuery *  );
 
+public :
+     inline const QList< BoardGameData *> & datas    ( ) const { return m_list; }
 protected :
+
 
 
     JacClient &             m_client;
     QNetworkReply *         m_reply;
+    QList< BoardGameData *> m_list;
 
 private slots:
 

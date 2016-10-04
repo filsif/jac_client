@@ -17,9 +17,9 @@ Item {
         property int totalResults:0
 
         id: listView
-        width: 180; height: 200
+        width: parent.width; height: parent.height
         anchors.fill: parent
-        spacing: -60
+
         model: boardgameModel
         delegate:BoardGameDelegate {
             id: boardgameDelegate
@@ -76,6 +76,7 @@ Item {
            MouseArea {
                anchors.fill : parent
                onClicked: {
+                   mainWidget.refreshBoardGames()
 
                }
            }
@@ -93,6 +94,12 @@ Item {
             onSearchFetched: {
                 console.log("<onSearchFetched>")
                 mainWidget.SearchBoardGames(result)
+            }
+
+            // *** MovieData object raised, insert it in the model ! ***
+            onBoardGameData: {
+                boardgameModel.addBoardGame(boardgame)
+                listView.nb_results += 1
             }
 
 

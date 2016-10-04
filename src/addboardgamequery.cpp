@@ -120,7 +120,7 @@ m_client(jac)
             pm_cover_v.save(&buffer, "JPG");
             QHttpPart cover_part;
             cover_part.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
-            cover_part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(QString("form-data; name=\"cover_%1\"; filename=\"cover_%2.jpg\"").arg( version->versionId(),version->versionId())));
+            cover_part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(QString("form-data; name=\"cover_%1\"; filename=\"cover_%2.jpg\"").arg( version->versionId()).arg(version->versionId())));
             cover_part.setBody( bArray);
             multipart->append(cover_part);
         }
@@ -134,7 +134,7 @@ m_client(jac)
             pm_thumbnail_v.save(&buffer, "JPG");
             QHttpPart thumbnail_part;
             thumbnail_part.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
-            thumbnail_part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(QString("form-data; name=\"thumbnail_%1\"; filename=\"thumbnail_%2.jpg\"").arg(version->versionId() , version->versionId())));
+            thumbnail_part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(QString("form-data; name=\"thumbnail_%1\"; filename=\"thumbnail_%2.jpg\"").arg(version->versionId()).arg( version->versionId())));
             thumbnail_part.setBody( bArray);
             multipart->append(thumbnail_part);
         }

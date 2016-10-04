@@ -29,7 +29,7 @@ MainWidget::MainWidget(QWindow *parent )
     connect ( m_client , SIGNAL(logout()) , this , SLOT(on_logout()));
     connect ( m_client , SIGNAL(emailAlreadyExists(bool)) , this , SLOT(on_email_exists(bool)));
     connect ( m_client , SIGNAL(nicknameAlreadyExists(bool)) , this , SLOT(on_nickname_exists(bool)));
-    connect ( m_client , SIGNAL(refreshCompleted( )) , this , SLOT(on_refresh_boardgames( )));
+    connect ( m_client , SIGNAL(refreshCompleted( BoardGameData * )) , this , SLOT(on_refresh_boardgames( BoardGameData * )));
 
     // Init Bgg API
 
@@ -230,7 +230,8 @@ MainWidget::on_image_result( Bgg::ImageQuery * query )
 }
 
 void
-MainWidget::on_refresh_boardgames( )
+MainWidget::on_refresh_boardgames( BoardGameData  * data)
 {
+    emit boardGameData( data );
 
 }

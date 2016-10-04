@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QDebug>
+#include <QJsonObject>
+
 
 class BoardGameData
          : public QObject
@@ -70,7 +72,7 @@ public:
 
 
 
-    void setBoardGameInfo( );
+    void setBoardGameInfo(const QJsonObject &  );
 
 
 private:

@@ -7,8 +7,8 @@ Item
     property string name
     property bool isSelected: listView.currentIndex === index
 
-    width: parent ? parent.width : imageItem.width
-    height: imageItem.height
+    width:  parent.width
+    height: 20
     z: isSelected ? 1000 : -index
     rotation: isSelected ? 0 : -15
     scale: isSelected ? 1.0 : 0.8

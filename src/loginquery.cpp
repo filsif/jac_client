@@ -67,6 +67,7 @@ LoginQuery::on_login_finished()
         */
 
 
+
         QJsonDocument jsonResponse = QJsonDocument::fromJson( m_reply->readAll() );
         if ( !jsonResponse.isEmpty() )
         {

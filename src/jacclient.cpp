@@ -162,7 +162,11 @@ JacClient::on_result_create_user( CreateUserQuery * query ,bool created )
 void
 JacClient::on_result_refresh_boardgames( MyBoardGamesQuery *query)
 {
-    emit refreshCompleted();
+    foreach ( BoardGameData * data , query->datas() )
+    {
+        emit refreshCompleted( data );
+    }
+
     query->deleteLater();
 }
 
