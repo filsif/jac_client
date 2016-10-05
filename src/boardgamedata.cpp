@@ -77,6 +77,21 @@ BoardGameData::setBoardGameInfo( const QJsonObject & obj )
         m_min_player = bg_fields_obj["min_player"].toInt();
         m_max_player = bg_fields_obj["max_player"].toInt();
         m_duration = bg_fields_obj["playing_time"].toInt();
+        m_year = bg_fields_obj["playing_time"].toInt();
+
+        QJsonValue cover = bg_fields_obj["cover"];
+
+        if (!cover.isNull())
+        {
+            m_cover_path = cover.toString();
+        }
+
+        QJsonValue thumbnail = bg_fields_obj["thumbnail"];
+
+        if (!thumbnail.isNull())
+        {
+            m_thumbnail_path = thumbnail.toString();
+        }
 
     }
     if (!version.isNull())
@@ -89,6 +104,22 @@ BoardGameData::setBoardGameInfo( const QJsonObject & obj )
         QJsonObject version_fields_obj = version_fields.toObject();
 
         m_version_title = version_fields_obj["name"].toString();
+
+        // overwrite if exists :
+
+        QJsonValue cover_v = version_fields_obj["cover"];
+
+        if (!cover_v.isNull() && cover_v.toString().compare("") != 0 )
+        {
+            m_cover_path = cover_v.toString();
+        }
+
+        QJsonValue thumbnail_v = version_fields_obj["thumbnail"];
+
+        if (!thumbnail_v.isNull() && thumbnail_v.toString().compare("") != 0 )
+        {
+            m_thumbnail_path = thumbnail_v.toString();
+        }
 
     }
 
