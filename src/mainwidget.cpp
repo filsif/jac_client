@@ -233,9 +233,10 @@ MainWidget::on_image_result( Bgg::ImageQuery * query )
 void
 MainWidget::on_refresh_boardgames( BoardGameData  * data)
 {
+    //qDebug() << "BoardGameData emit : " << data->title();
     emit boardGameData( data );
-    //m_boardGameHashTable[ data->id() ] = data;
-    //m_client->refreshBoardGameImages( data );
+    m_boardGameHashTable[ data->id() ] = data;
+    m_client->refreshBoardGameImages( data );
 }
 
 void

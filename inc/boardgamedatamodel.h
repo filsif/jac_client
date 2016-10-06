@@ -28,6 +28,8 @@ public:
         MinPlayerRole,
         MaxPlayerRole,
         DurationRole,
+        CoverRole,
+        ThumbnailRole,
         NbRole
     };
 

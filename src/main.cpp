@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QStandardPaths>
+#include <QDir>
 
 
 #include "jacclient.h"
@@ -9,6 +11,7 @@
 #include "boardgamedatamodel.h"
 
 
+QString g_cachePath;
 
 
 int main(int argc, char *argv[])
@@ -19,6 +22,15 @@ int main(int argc, char *argv[])
     app.setOrganizationName("fmr-dev");
     app.setOrganizationDomain("fmr-dev.net");
     app.setApplicationName("Jouons à Châteauroux");
+
+    g_cachePath = QStandardPaths::writableLocation( QStandardPaths::CacheLocation );
+    QDir dir(g_cachePath);
+    if ( !dir.exists())
+    {
+        dir.mkpath(g_cachePath);
+    }
+
+    qDebug() << "standard path for cache is : " << g_cachePath;
 
 
     qmlRegisterType<MyDevice>("mydevice", 1, 0, "MyDevice");

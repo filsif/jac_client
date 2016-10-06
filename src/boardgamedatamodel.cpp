@@ -77,6 +77,10 @@ BoardGameDataModel::data(const QModelIndex & index, int role /*= Qt::DisplayRole
         return bg->maxPlayer();
     case DurationRole :
         return bg->duration();
+    case CoverRole :
+        return bg->cover();
+    case ThumbnailRole :
+        return bg->thumbnail();
     default:
         break;
     }
@@ -96,6 +100,8 @@ BoardGameDataModel::roleNames() const
     roles[MinPlayerRole] = "min player";
     roles[MaxPlayerRole] = "max player";
     roles[DurationRole] = "duration";
+    roles[CoverRole] = "cover";
+    roles[ThumbnailRole] = "thumbnail";
     return roles;
 
 }

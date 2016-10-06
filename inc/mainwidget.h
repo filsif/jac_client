@@ -109,7 +109,7 @@ signals:
 
     void    searchBegin         ( );
     void    searchFetched       ( SearchResult * result );
-    void    boardGameData       ( const BoardGameData * boardgame );
+    void    boardGameData       ( BoardGameData * boardgame );
 
 public:
     MainWidget(QWindow *parent = 0);

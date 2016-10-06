@@ -8,7 +8,7 @@ Item
     property bool isSelected: listView.currentIndex === index
 
     width:  parent.width
-    height: 64
+    height: 128
     z: isSelected ? 1000 : -index
     //rotation: isSelected ? 0 : -15
     scale: isSelected ? 1.0 : 0.8
@@ -22,14 +22,16 @@ Item
     }
 
     Row{
+        anchors.fill: parent
         Image {
             id      : imageItem
-            width   : 64
-            height  : 64
-            source   : "qrc:///images/thumbnail_image_empty.png"
+            width   : 128
+            height  : 128
+            source   : "file:///" + model.thumbnail
         }
 
         Text {
+            anchors.centerIn: parent
             id      : textItem
             text    : model.title
         }

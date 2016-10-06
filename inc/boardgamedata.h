@@ -20,6 +20,8 @@ class BoardGameData
     Q_PROPERTY(QString versionTitle READ versionTitle)
     Q_PROPERTY(QString synopsis READ synopsis)
     Q_PROPERTY(QString language READ language)
+    Q_PROPERTY(QString cover READ cover)
+    Q_PROPERTY(QString thumbnail READ thumbnail)
 
 
     Q_PROPERTY(int id READ id)
@@ -36,8 +38,8 @@ public:
         m_version_title(""),
         m_synopsis(""),
         m_language(""),
-        m_cover_path(""),
-        m_thumbnail_path("")
+        m_cover_local_path(""),
+        m_thumbnail_local_path("qrc:///images/thumbnail_image_empty.png")
     {
     }
 
@@ -74,12 +76,32 @@ public:
 
     const QString thumbnail() const
     {
-        return m_thumbnail_path;
+        return m_thumbnail_local_path;
+
+    }
+    const QString thumbnail_remote() const
+    {
+        return m_thumbnail_remote_path;
+
+    }
+
+    const QString thumbnail_md5() const
+    {
+        return m_thumbnail_md5;
 
     }
     const QString cover() const
     {
-        return m_cover_path;
+        return m_cover_local_path;
+    }
+
+    const QString cover_remote() const
+    {
+        return m_cover_remote_path;
+    }
+    const QString cover_md5() const
+    {
+        return m_cover_md5;
     }
 
     int id() const
@@ -129,11 +151,14 @@ private:
     int     m_year;
 
 
-    QString m_cover_path;
-    QString m_thumbnail_path;
+    QString m_cover_remote_path;
+    QString m_thumbnail_remote_path;
 
-    QPixmap m_cover;
-    QPixmap m_thumbnail;
+    QString m_cover_local_path;
+    QString m_thumbnail_local_path;
+
+    QString m_cover_md5;
+    QString m_thumbnail_md5;
 
 };
 

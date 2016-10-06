@@ -2,6 +2,9 @@
 #include <QJsonArray>
 #include "boardgamedata.h"
 
+
+extern QString g_cachePath;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // BoardGameData
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,8 +23,10 @@ BoardGameData::setBoardGameInfo( const QJsonObject & obj )
                                         "pk": 1,
                                         "fields": {
                                             "cover": "",
+                                            "cover_md5" :"...",
                                             "name": "Abyss",
                                             "thumbnail": "http://127.0.0.1/snapshot_1_234390.jpg",
+                                            "thumbnail" : "...",
                                             "genres": [1, 4, 6],
                                             "playing_time": 60,
                                             "bgg_id": 155987,
@@ -42,8 +47,10 @@ BoardGameData::setBoardGameInfo( const QJsonObject & obj )
                                         "pk": 1,
                                         "fields": {
                                             "cover": null,
+                                            "cover_md5" : "...",
                                             "name": "French first edition",
                                             "thumbnail": null,
+                                            "thumbnail_md5" : "..."
                                             "boardgame": 1,
                                             "year": 2014,
                                             "bgg_version_id": 234390,
@@ -83,17 +90,29 @@ BoardGameData::setBoardGameInfo( const QJsonObject & obj )
         m_year = bg_fields_obj["playing_time"].toInt();
 
         QJsonValue cover = bg_fields_obj["cover"];
+        QJsonValue cover_md5 = bg_fields_obj["cover_md5"];
 
         if (!cover.isNull() && cover.toString().compare("") != 0 )
         {
-            m_cover_path = cover.toString();
+            m_cover_remote_path = cover.toString();
+            m_cover_md5 =cover_md5.toString();
+
+            QUrl url = m_cover_remote_path;
+
+            m_cover_local_path =  g_cachePath + "/" + url.fileName();
         }
 
         QJsonValue thumbnail = bg_fields_obj["thumbnail"];
+        QJsonValue thumbnail_md5 = bg_fields_obj["thumbnail_md5"];
 
         if (!thumbnail.isNull() && thumbnail.toString().compare("") != 0)
         {
-            m_thumbnail_path = thumbnail.toString();
+            m_thumbnail_remote_path = thumbnail.toString();
+            m_thumbnail_md5 = thumbnail_md5.toString();
+
+            QUrl url = m_thumbnail_remote_path;
+
+            m_thumbnail_local_path =  g_cachePath + "/" + url.fileName();
         }
 
     }
@@ -111,17 +130,31 @@ BoardGameData::setBoardGameInfo( const QJsonObject & obj )
         // overwrite if exists :
 
         QJsonValue cover_v = version_fields_obj["cover"];
+        QJsonValue cover_md5_v = version_fields_obj["cover_md5"];
 
         if (!cover_v.isNull() && cover_v.toString().compare("") != 0 )
         {
-            m_cover_path = cover_v.toString();
+            m_cover_remote_path = cover_v.toString();
+            m_cover_md5 = cover_md5_v.toString();
+
+            QUrl url = m_cover_remote_path;
+
+            m_cover_local_path =  g_cachePath + "/" + url.fileName();
         }
 
         QJsonValue thumbnail_v = version_fields_obj["thumbnail"];
+        QJsonValue thumbnail_md5_v = version_fields_obj["thumbnail_md5"];
 
         if (!thumbnail_v.isNull() && thumbnail_v.toString().compare("") != 0 )
         {
-            m_thumbnail_path = thumbnail_v.toString();
+            m_thumbnail_remote_path = thumbnail_v.toString();
+            m_thumbnail_md5 = thumbnail_md5_v.toString();
+
+            QUrl url = m_thumbnail_remote_path;
+
+            m_thumbnail_local_path =  g_cachePath + "/" + url.fileName();
+
+
         }
 
     }
@@ -131,16 +164,4 @@ BoardGameData::setBoardGameInfo( const QJsonObject & obj )
 }
 
 
-void
-BoardGameData::setImage(Bgg::ImageType type , const QPixmap &pixmap)
-{
-    if (type == Bgg::Thumbnail )
-    {
-        m_thumbnail = pixmap;
-    }
-    else if ( type == Bgg::Cover)
-    {
-        m_cover = pixmap;
-    }
 
-}

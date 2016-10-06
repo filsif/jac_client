@@ -25,9 +25,13 @@ public:
 
 signals :
 
-    void                results                     ( MyBoardGameImagesQuery *  );
+    void                results                     ( MyBoardGameImagesQuery * , BoardGameData * );
 
 public :
+
+private :
+
+    bool               CheckMd5File( const QString & filename , const QString & md5 );
 
 protected :
 
