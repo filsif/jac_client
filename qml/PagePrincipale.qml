@@ -238,6 +238,8 @@ Rectangle {
         onLogout: {
             console.log( "unlogged" )
 
+            loader.source = ""
+
             mainpage.state = "LOGIN"
         }
 

@@ -98,6 +98,15 @@ JacClient::refreshBoardGames( )
 
 }
 
+int
+JacClient::refreshBoardGameImages( BoardGameData * data )
+{
+    MyBoardGameImagesQuery *query = new MyBoardGameImagesQuery( *this  ,data );
+    connect ( query , SIGNAL(results(MyBoardGameImagesQuery * ,BoardGameData*  )) , this , SLOT(on_result_refresh_boardgame_images(MyBoardGameImagesQuery* , BoardGameData *)));
+    return 0;
+
+}
+
 
 
 int
@@ -161,15 +170,20 @@ JacClient::on_result_create_user( CreateUserQuery * query ,bool created )
 }
 void
 JacClient::on_result_refresh_boardgames( MyBoardGamesQuery *query)
-{
+{    
     foreach ( BoardGameData * data , query->datas() )
     {
         emit refreshCompleted( data );
     }
-
     query->deleteLater();
 }
+void
 
+JacClient::on_result_refresh_boardgame_images( MyBoardGameImagesQuery *query, BoardGameData * data)
+{
+    emit refreshImageCompleted( data );
+    query->deleteLater();
+}
 
 }
 

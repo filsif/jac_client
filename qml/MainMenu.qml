@@ -147,7 +147,7 @@ Item {
                     if (item == "page_logout")
                     {
                         listViewMenu.currentIndex = 0 // reset
-                        pagePrincipale.onMenu()
+                        pagePrincipale.onMenu()                       
                         mainWidget.Logout()
                     }
                     else

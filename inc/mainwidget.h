@@ -5,6 +5,7 @@
 #include <QQmlContext>
 #include <QQuickView>
 #include <QList>
+#include <QHash>
 
 
 #include "jacclient.h"
@@ -108,7 +109,7 @@ signals:
 
     void    searchBegin         ( );
     void    searchFetched       ( SearchResult * result );
-    void    boardGameData       ( BoardGameData * boardgame );
+    void    boardGameData       ( const BoardGameData * boardgame );
 
 public:
     MainWidget(QWindow *parent = 0);
@@ -137,7 +138,10 @@ private slots:
     void    on_search_collection_results    ( Bgg::SearchCollectionQuery * );
     void    on_boardgame_result             ( Bgg::BoardGameQuery * );
     void    on_image_result                 ( Bgg::ImageQuery * query );
+
     void    on_refresh_boardgames           ( BoardGameData *);
+    void    on_refresh_bg_images            ( BoardGameData *);
+
 
 
 private slots:
@@ -147,6 +151,9 @@ private:
     QQmlContext *       m_context;
     jac::JacClient *    m_client;
     Bgg::BggApi *       m_bgg_api;
+
+
+    QHash<int, BoardGameData *> m_boardGameHashTable;       // hash table for searching images
 
 
 };

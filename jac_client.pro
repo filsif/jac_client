@@ -23,7 +23,8 @@ SOURCES += src/main.cpp \
     src/createuserquery.cpp \
     src/myboardgamesquery.cpp \
     src/boardgamedata.cpp \
-    src/boardgamedatamodel.cpp
+    src/boardgamedatamodel.cpp \
+    src/myboardgameimagesquery.cpp
 
 RESOURCES += qml.qrc
 
@@ -68,7 +69,8 @@ HEADERS += \
     inc/createuserquery.h \
     inc/myboardgamesquery.h \
     inc/boardgamedata.h \
-    inc/boardgamedatamodel.h
+    inc/boardgamedatamodel.h \
+    inc/myboardgameimagesquery.h
 
 	
 	INCLUDEPATH += . \

@@ -2,16 +2,15 @@ import QtQuick 2.0
 
 import fr.jac.client 1.0
 
-Item {
-
+Item {    
     // Footer
+
+    id : pageMyGame
 
     // *** MovieDataModel implemented in C++ side ***
     BoardGameDataModel{
         id: boardgameModel
     }
-
-
     ListView {
         property int nb_results: 0
         property int totalResults:0
@@ -38,8 +37,6 @@ Item {
         }
     }
 
-
-
     Row
     {
         id                  : footer
@@ -62,8 +59,6 @@ Item {
                anchors.fill : parent
                onClicked: {
                    mainWidget.Search()
-
-
                }
            }
         }
@@ -82,6 +77,8 @@ Item {
            }
         }
 
+
+
         Connections {
             target: mainWidget
 
@@ -98,6 +95,7 @@ Item {
 
             // *** MovieData object raised, insert it in the model ! ***
             onBoardGameData: {
+                console.log("<onBoardGameData>")
                 boardgameModel.addBoardGame(boardgame)
                 listView.nb_results += 1
             }
@@ -105,6 +103,6 @@ Item {
 
         }        
 
-    }
+    }    
 
 }

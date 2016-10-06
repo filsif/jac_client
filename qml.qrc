@@ -29,5 +29,7 @@
         <file>qml/RowInscription.qml</file>
         <file>images/arrows.png</file>
         <file>qml/BoardGameDelegate.qml</file>
+        <file>images/person_image_empty.png</file>
+        <file>images/thumbnail_image_empty.png</file>
     </qresource>
 </RCC>

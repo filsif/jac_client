@@ -6,6 +6,9 @@
 #include <QJsonObject>
 #include <QPixmap>
 
+// libbgg
+
+#include <libbgg/models.h>
 
 class BoardGameData
          : public QObject
@@ -19,6 +22,7 @@ class BoardGameData
     Q_PROPERTY(QString language READ language)
 
 
+    Q_PROPERTY(int id READ id)
     Q_PROPERTY(int minPlayer READ minPlayer)
     Q_PROPERTY(int minAge READ minAge)
     Q_PROPERTY(int maxPlayer READ maxPlayer)
@@ -27,7 +31,13 @@ class BoardGameData
 
 
 public:
-    BoardGameData()
+    BoardGameData():
+        m_title(""),
+        m_version_title(""),
+        m_synopsis(""),
+        m_language(""),
+        m_cover_path(""),
+        m_thumbnail_path("")
     {
     }
 
@@ -37,6 +47,9 @@ public:
     }
 
 public:
+
+    void    setImage( Bgg::ImageType , const QPixmap & pixmap);
+
 
 
     const QString& title() const
@@ -59,6 +72,20 @@ public:
         return m_language;
     }
 
+    const QString thumbnail() const
+    {
+        return m_thumbnail_path;
+
+    }
+    const QString cover() const
+    {
+        return m_cover_path;
+    }
+
+    int id() const
+    {
+        return m_id;
+    }
     int minPlayer() const
     {
         return m_min_player;
@@ -94,6 +121,7 @@ private:
     QString m_synopsis;
     QString m_language;
 
+    int     m_id;
     int     m_min_age;
     int     m_min_player;
     int     m_max_player;

@@ -20,6 +20,7 @@
 #include "checkemailquery.h"
 #include "createuserquery.h"
 #include "myboardgamesquery.h"
+#include "myboardgameimagesquery.h"
 
 // libbgg
 
@@ -39,6 +40,7 @@ signals:
     void                            emailAlreadyExists                  ( bool result );
     void                            userCreated                         ( bool result );
     void                            refreshCompleted                    ( BoardGameData *);
+    void                            refreshImageCompleted               ( BoardGameData *);
 
 public :
     // access to parameters of current logged user
@@ -57,6 +59,7 @@ public:
     int                             checkEmail                          ( QString );
     int                             createUser                          ( QObject *);
     int                             refreshBoardGames                   ( );
+    int                             refreshBoardGameImages              ( BoardGameData * data );
 
 
     int                             addBoardGame                        ( Bgg::BoardGameInfo_sp bg_info );
@@ -84,6 +87,7 @@ private slots:
     void                            on_result_check_email                ( CheckEmailQuery *,bool );
     void                            on_result_create_user                ( CreateUserQuery * , bool );
     void                            on_result_refresh_boardgames         ( MyBoardGamesQuery *);
+    void                            on_result_refresh_boardgame_images   ( MyBoardGameImagesQuery *, BoardGameData * data);
 
 
 private :

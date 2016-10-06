@@ -56,6 +56,9 @@ BoardGameData::setBoardGameInfo( const QJsonObject & obj )
 
 
     QJsonValue fields = obj["fields"];
+    QJsonValue pk = obj["pk"];
+
+    m_id = pk.toInt();
 
     QJsonObject fields_obj = fields.toObject();
 
@@ -81,14 +84,14 @@ BoardGameData::setBoardGameInfo( const QJsonObject & obj )
 
         QJsonValue cover = bg_fields_obj["cover"];
 
-        if (!cover.isNull())
+        if (!cover.isNull() && cover.toString().compare("") != 0 )
         {
             m_cover_path = cover.toString();
         }
 
         QJsonValue thumbnail = bg_fields_obj["thumbnail"];
 
-        if (!thumbnail.isNull())
+        if (!thumbnail.isNull() && thumbnail.toString().compare("") != 0)
         {
             m_thumbnail_path = thumbnail.toString();
         }
@@ -121,6 +124,23 @@ BoardGameData::setBoardGameInfo( const QJsonObject & obj )
             m_thumbnail_path = thumbnail_v.toString();
         }
 
+    }
+
+
+
+}
+
+
+void
+BoardGameData::setImage(Bgg::ImageType type , const QPixmap &pixmap)
+{
+    if (type == Bgg::Thumbnail )
+    {
+        m_thumbnail = pixmap;
+    }
+    else if ( type == Bgg::Cover)
+    {
+        m_cover = pixmap;
     }
 
 }

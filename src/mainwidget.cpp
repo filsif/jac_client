@@ -30,6 +30,7 @@ MainWidget::MainWidget(QWindow *parent )
     connect ( m_client , SIGNAL(emailAlreadyExists(bool)) , this , SLOT(on_email_exists(bool)));
     connect ( m_client , SIGNAL(nicknameAlreadyExists(bool)) , this , SLOT(on_nickname_exists(bool)));
     connect ( m_client , SIGNAL(refreshCompleted( BoardGameData * )) , this , SLOT(on_refresh_boardgames( BoardGameData * )));
+    connect ( m_client , SIGNAL(refreshImageCompleted( BoardGameData * )) , this , SLOT(on_refresh_bg_images( BoardGameData * )));
 
     // Init Bgg API
 
@@ -233,5 +234,18 @@ void
 MainWidget::on_refresh_boardgames( BoardGameData  * data)
 {
     emit boardGameData( data );
-
+    //m_boardGameHashTable[ data->id() ] = data;
+    //m_client->refreshBoardGameImages( data );
 }
+
+void
+MainWidget::on_refresh_bg_images( BoardGameData  * data)
+{
+    if(data && m_boardGameHashTable.contains(data->id()))
+    {
+        m_boardGameHashTable.remove(data->id());
+        emit boardGameData(data);
+    }
+}
+
+
