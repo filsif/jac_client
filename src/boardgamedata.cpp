@@ -70,7 +70,7 @@ BoardGameData::setBoardGameInfo( const QJsonObject & obj )
     QJsonObject fields_obj = fields.toObject();
 
     QJsonValue bg  = fields_obj["boardgame"];
-    QJsonValue version = fields_obj["version"];
+    QJsonValue version = fields_obj["bg_version"];
 
     if ( !bg.isNull())
     {
